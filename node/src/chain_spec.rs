@@ -1,9 +1,9 @@
-// Copyright 2020 Parity Technologies (UK) Ltd.
+// Copyright 2020 Starks Network Ltd.
 
 use cumulus_primitives::ParaId;
 use parachain_runtime::{
-	AccountId, BalancesConfig, GenesisConfig, Signature, SudoConfig, SystemConfig,
-	ParachainInfoConfig, WASM_BINARY,
+	AccountId, BalancesConfig, GenesisConfig, ParachainInfoConfig, Signature, SudoConfig,
+	SystemConfig, WASM_BINARY,
 };
 use sc_chain_spec::{ChainSpecExtension, ChainSpecGroup};
 use sc_service::{ChainType, Properties};
@@ -50,12 +50,12 @@ where
 
 pub fn get_chain_spec(id: ParaId) -> Result<ChainSpec, String> {
 	let mut properties = Properties::new();
-	properties.insert("tokenSymbol".into(), "DEV".into());
-	properties.insert("tokenDecimals".into(), 12.into());
+	properties.insert("tokenSymbol".into(), "STN".into());
+	properties.insert("tokenDecimals".into(), 18.into());
 
 	Ok(ChainSpec::from_genesis(
-		"Local Testnet",
-		"local_testnet",
+		"Starks Collator Local Testnet",
+		"starks_parachain_local_testnet",
 		ChainType::Local,
 		move || {
 			testnet_genesis(
@@ -83,7 +83,7 @@ pub fn get_chain_spec(id: ParaId) -> Result<ChainSpec, String> {
 		None,
 		Some(properties),
 		Extensions {
-			relay_chain: "local_testnet".into(),
+			relay_chain: "rococo_local_testnet".into(),
 			para_id: id.into(),
 		},
 	))
@@ -91,12 +91,12 @@ pub fn get_chain_spec(id: ParaId) -> Result<ChainSpec, String> {
 
 pub fn staging_test_net(id: ParaId) -> Result<ChainSpec, String> {
 	let mut properties = Properties::new();
-	properties.insert("tokenSymbol".into(), "STG".into());
-	properties.insert("tokenDecimals".into(), 12.into());
+	properties.insert("tokenSymbol".into(), "STN".into());
+	properties.insert("tokenDecimals".into(), 18.into());
 
 	Ok(ChainSpec::from_genesis(
-		"Staging Testnet",
-		"staging_testnet",
+		"Starks Collator Staging Testnet",
+		"starks_parachain_staging_testnet",
 		ChainType::Live,
 		move || {
 			testnet_genesis(
@@ -111,7 +111,7 @@ pub fn staging_test_net(id: ParaId) -> Result<ChainSpec, String> {
 		None,
 		Some(properties),
 		Extensions {
-			relay_chain: "rococo_local_testnet".into(),
+			relay_chain: "rococo_staging_testnet".into(),
 			para_id: id.into(),
 		},
 	))
